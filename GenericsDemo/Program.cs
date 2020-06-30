@@ -10,6 +10,10 @@ namespace GenericsDemo
     {
         static void Main(string[] args)
         {
+            Console.WriteLine();
+
+            Console.Write("Please Enter any key to exit the application.....");
+            Console.Read();
         }
     }
 }
