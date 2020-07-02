@@ -13,7 +13,8 @@ namespace GenericsDemo
         static void Main(string[] args)
         {
             Console.WriteLine();
-
+       
+            DemonStrateTextFileStorage();
             Console.Write("Please Enter any key to exit the application.....");
             Console.Read();
         }
@@ -25,10 +26,16 @@ namespace GenericsDemo
             string logFile = @"D:\New folder\logs.csv";
             PopulateLists(people, logs);
             OriginalTextFileProcessor.SavePepole(people, pepoleFile);
+            OriginalTextFileProcessor.SaveLogEntry(logs, logFile);
             var newPeople = OriginalTextFileProcessor.LoadPeople(pepoleFile);
+            var newLog = OriginalTextFileProcessor.LoadLogEntry(logFile);
             foreach (var p in newPeople)
             {
                 Console.WriteLine($"First Name: {p.FirstName }, Last Name: { p.LastName}, Is Alive: {p.IsAlive }");
+            }
+            foreach (var L in newLog)
+            {
+                Console.WriteLine($"Message: {L.Message }, Error Code: { L.ErrorCode}, Time of Event: {L.TimeOfEvent }");
             }
         }
         private static void PopulateLists(List<Person> people, List<LogEntry> logs)
@@ -39,6 +46,7 @@ namespace GenericsDemo
             people.Add(new Person { FirstName = "Md Delwar", LastName = "Hossain", IsAlive = true });
             people.Add(new Person { FirstName = "Md Asif", LastName = "Khan", IsAlive = true });
             people.Add(new Person { FirstName = "Md Atiqur", LastName = "Rahman", IsAlive = true });
+            people.Add(new Person { FirstName = "Mohibur ", LastName = "Rahman", IsAlive = true });
 
             logs.Add(new LogEntry { Message = "Hi How are you",  ErrorCode= 000121});
             logs.Add(new LogEntry { Message = "This is Nice", ErrorCode = 334021});
