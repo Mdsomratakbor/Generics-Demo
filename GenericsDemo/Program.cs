@@ -1,4 +1,5 @@
 ﻿using GenericsDemo.Models;
+using GenericsDemo.WithGenerics;
 using GenericsDemo.WithoutGenerics;
 using System;
 using System.Collections.Generic;
@@ -25,10 +26,15 @@ namespace GenericsDemo
             string pepoleFile = @"D:\New folder\pepole.csv";
             string logFile = @"D:\New folder\logs.csv";
             PopulateLists(people, logs);
-            OriginalTextFileProcessor.SavePepole(people, pepoleFile);
-            OriginalTextFileProcessor.SaveLogEntry(logs, logFile);
-            var newPeople = OriginalTextFileProcessor.LoadPeople(pepoleFile);
-            var newLog = OriginalTextFileProcessor.LoadLogEntry(logFile);
+
+            //OriginalTextFileProcessor.SavePepole(people, pepoleFile);
+            //OriginalTextFileProcessor.SaveLogEntry(logs, logFile);
+             GenericTextFileProcess.SaveToTextFile<Person>(people,pepoleFile);
+            GenericTextFileProcess.SaveToTextFile<LogEntry>(logs,logFile);
+            var newPeople = GenericTextFileProcess.LoadFromTextFile<Person>(pepoleFile);
+            var newLog = GenericTextFileProcess.LoadFromTextFile<LogEntry>(logFile);
+            //var newPeople = OriginalTextFileProcessor.LoadPeople(pepoleFile);
+            //var newLog = OriginalTextFileProcessor.LoadLogEntry(logFile);
             foreach (var p in newPeople)
             {
                 Console.WriteLine($"First Name: {p.FirstName }, Last Name: { p.LastName}, Is Alive: {p.IsAlive }");

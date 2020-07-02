@@ -41,5 +41,33 @@ namespace GenericsDemo.WithGenerics
             }
             return output;
         }
+
+        public static void SaveToTextFile<T>(List<T> data, string filePathe) where T : class, new()
+        {
+            List<string> lines = new List<string>();
+            StringBuilder line = new StringBuilder();
+            if(data == null || data.Count == 0)
+            {
+                throw new ArgumentNullException("data", "you must populate the data parameter with least one");
+            }
+            var cols = data[0].GetType().GetProperties();
+            foreach (var col in cols)
+            {
+                line.Append(col.Name);
+                line.Append(",");
+            }
+            lines.Add(line.ToString().Substring(0, line.Length - 1));
+            foreach (var row in data)
+            {
+                line = new StringBuilder();
+                foreach(var col in cols)
+                {
+                    line.Append(col.GetValue(row));
+                    line.Append(",");
+                }
+                lines.Add(line.ToString().Substring(0, line.Length-1));
+            }
+            File.WriteAllLines(filePathe, lines);
+        }
     }
 }
